@@ -1,0 +1,35 @@
+.rdsSearch 
+{
+	border:2px solid #007F64;
+	border-radius:10px;
+	height: 25px;
+	width: 350px;
+    text-indent: 5px;
+    outline: none;
+}
+.nav-pills > li.active > a, 
+.nav-pills > li.active > a:hover, 
+.nav-pills > li.active > a:focus 
+{
+        background-color:#007F64;
+}
+input[type="radio"]{
+    vertical-align: baseline;
+}
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:focus 
+{
+    background-color: #007F64;
+    border-color: #007F64;
+}
+.ng-invalid.ng-dirty
+{
+    border-color: red;
+}
+.ng-valid.ng-dirty
+{
+    border-color:green;
+}
