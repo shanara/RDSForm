@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html ng-app="rdsFormApp">
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/rdscss.css" />
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+  </head>
+  <body class="container" ng-controller="RdsInboxController as rdsInCtrl">
+    <header>
+        <h1 class="text-center">Sage 50 Payroll and Sage 50 Accounts</h1>
+      <h2 class="text-center">Report Design Request System</h2>
+      </header>
+        <section class="tab" ng-controller="TabController as tab">
+            <ul class="nav nav-pills">
+              <li ng-class="{ active: tab.isSet(1) }">
+                <a href ng-click="tab.setTab(1)">Inbox</a></li>
+              <li ng-class="{ active: tab.isSet(2) }">
+                <a href ng-click="tab.setTab(2)">Submit a new request</a></li>
+            </ul>
+            <div ng-show="tab.isSet(1)">
+                <p>Type in a company name, account number, incident reference or program type to search:</p>
+                <input type="text" class="Search" ng-model="searchBox">
+                <table class="table table-hover">
+                <thead>    
+                    <tr>
+                    <th>Incident Reference</th>    
+                    <th>Account Number</th>
+                    <th>Company Name</th> 
+                    <th>Program (Payroll/Accounts)</th>
+                    </tr></thead>
+                    <tr ng-repeat="pending in rdsInCtrl.ins | filter: searchBox">
+                    <td>{{pending.incident}}</td>
+                    <td>{{pending.accountNo}}</td>
+                    <td>{{pending.companyName}}</td> 
+                    <td>{{pending.program}}</td>
+                    </tr>
+                </table>    
+            </div>
+            <div ng-show="tab.isSet(2)">
+              <form companyName="newRdsForm" ng-controller="FormController as formCtrl" ng-submit="formCtrl.addRds(formAdd)" novalidate>
+                <strong>Preview:</strong>
+                <table class="table">
+                <thead>    
+                    <tr>
+                    <th>Incident Reference</th>    
+                    <th>Account Number</th>
+                    <th>Company Name</th> 
+                    <th>Program (Payroll/Accounts)</th>
+                    </tr></thead>
+                    <tr>
+                    <td>{{formCtrl.pending.incident}}</td>
+                    <td>{{formCtrl.pending.accountNo}}</td>
+                    <td>{{formCtrl.pending.companyName}}</td> 
+                    <td>{{formCtrl.pending.program}}</td>
+                    </tr>
+                </table>
+                <p>Please enter the details below to submit a new Report Design Request for Sage 50 Payroll or Sage 50 Accounts:</p>
+
+                    <fieldset class="form-group">
+                    <p>Incident Reference:</p>
+                        <input ng-model=formCtrl.pending.incident class="form-control" placeholder="Enter your Incident Reference" title="Incident Reference" required>
+                    </fieldset>
+                    <fieldset class="form-group">
+                       <p>Account Number:</p>
+                        <input ng-model=formCtrl.pending.accountNo class="form-control" placeholder="Enter your Sage Account Number" title="Account Number" required >
+                    </fieldset>
+                        <p>Company Name:</p>
+                        <input ng-model=formCtrl.pending.companyName class="form-control" placeholder="Enter your company name" title="Company Name" required>
+                    <fieldset class="form-group">
+                        <p>Please select the program you're submitting the report design for:</p>
+                        <label><input ng-model=formCtrl.pending.program type="radio" value="Sage 50 Payroll" required> Sage 50 Payroll</label>
+                      <label><input ng-model=formCtrl.pending.program type="radio" value="Sage 50 Accounts" required> Sage 50 Accounts</label>
+                  </fieldset>
+                  <fieldset class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Submit Report Design Request" />
+                  </fieldset>
+              </form>
+            </div> 
+    </section>
+  </body>
+</html>
